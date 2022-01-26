@@ -9,8 +9,13 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 const cors = require('cors');
-//const path = require('path');
+const path = require('path');
 const PUERTO = process.env.PORT || 5000;
+
+server.use(express.static(path.join(__dirname,'build')));
+server.get('/*', function(req,res){
+    res.sendFile(path.join(__dirname,'build','index.html'));
+});
 
 /* CORS para establecer la SEGURIDAD en la conexión y envio de los datos */
 server.use(cors());
